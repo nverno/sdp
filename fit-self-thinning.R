@@ -4,8 +4,8 @@
 ##   the algorithm Scott used, 'Marquardt') algorithm (closed-form)
 ##   wherever possible, if gauss-newton fails, try Nelder-Mead,
 ##   then SANN if all else fails...
-source("functions.R")
-dfplot <- read.csv("sdp-plot-level.csv")
+source("~/work/functions/functions.R")
+dfplot <- read.csv("~/work/data/data/sdp/sdp-plot-level.csv")
 ## dfplot$pplot <- factor(dfplot$pplot)
 ## dfplot$install <- factor(dfplot$install)
 ## dfplot$plot <- factor(dfplot$plot)
@@ -95,10 +95,10 @@ thinline <- ddply(dftest, .(install, plot), .fun = function(x) {
 
 ## save fits data.frame
 names(thinline) <- c("install","plot","a0","a1","a2")
-write.csv(thinline, "thinline-fits.csv", row.names=FALSE)
+write.csv(thinline, "~/work/data/data/sdp/thinline-fits.csv", row.names=FALSE)
 
 ## Lets look at the fits and the data
-tl <- read.csv("thinline-fits.csv")
+tl <- read.csv("~/work/data/data/sdp/thinline-fits.csv")
 par(ask = TRUE)
 showstuff <- ddply(dfplot, .(install, plot), .fun = function(x) {
     plot(log(x$plotden), log(x$plotbv), col="black",

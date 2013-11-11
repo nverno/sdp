@@ -1,7 +1,7 @@
 ## Calculate SDP values based on fitted thinning lines
 ##  SDP values are ratio of (est. log(PlotBV))/(obs. log(PlotBV))
 ##  - calculate an sdp value for each sample period
-tl <- read.csv("thinline-fits.csv")
+tl <- read.csv("~/work/data/data/sdp/thinline-fits.csv")
 sdps <- ddply(dfplot, .(install, plot, time), .fun = function(x) {
     x <- droplevels(x)
     a0 <- tl[tl$install==x$install & tl$plot==x$plot,]$a0
@@ -20,7 +20,7 @@ quantile(sdps$sdp)
 sdps$sdpclass <- cut(sdps$sdp, breaks = c(0,.95,.995,1.5))
 
 ## add sdps and sdpclass to dflong
-dflong <- read.csv("long-dfonly-derived.csv")
+dflong <- read.csv("~/work/data/data/long-dfonly-derived.csv")
 times <- ddply(dflong, .(install,plot,time), .fun = function(x){
     x <- droplevels(x)
     data.frame = c(
@@ -32,5 +32,5 @@ times <- ddply(dflong, .(install,plot,time), .fun = function(x){
 dflong$sdp <- rep(sdps$sdp, times = times$num)
 dflong$sdpclass <- rep(sdpclass, times = times$num)
 
-write.csv(dflong, "long-dfonly-derived.csv", row.names = FALSE)
+write.csv(dflong, "~/work/data/data/long-dfonly-derived.csv", row.names = FALSE)
 
